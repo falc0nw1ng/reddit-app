@@ -15,7 +15,6 @@ from dash.dependencies import Output, Input
 import dash_table
 import plotly.express as px
 import plotly.graph_objects as go
-#nltk.download('stopwords')
 
 #external_stylesheets = ["https://codepen.io/chriddyp/pen/bWLwgP.css"]
 
@@ -83,6 +82,7 @@ tab_selected_style = {
 app = dash.Dash(__name__, )
 app.title = "Reddit Sentiment Analysis"
 app.config.suppress_callback_exceptions = True
+server = app.server
 
 app.layout = html.Div([
     html.H1('A Natural Language Processing Application for Reddit', className='title'),
