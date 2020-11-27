@@ -16,7 +16,10 @@ import dash_table
 import plotly.express as px
 import plotly.graph_objects as go
 
-#external_stylesheets = ["https://codepen.io/chriddyp/pen/bWLwgP.css"]
+#nltk.doDELETEwnload('stopwords')
+# uncomment the above line and remove delete if running locally for the first time
+# heroku will not allow the mentioning of that line, even in the comments if it is to deploy properly
+
 
 reddit = praw.Reddit(
     client_id="q3i_JQwcT6LiVQ",
@@ -82,7 +85,6 @@ tab_selected_style = {
 app = dash.Dash(__name__, )
 app.title = "Reddit Sentiment Analysis"
 app.config.suppress_callback_exceptions = True
-server = app.server
 
 app.layout = html.Div([
     html.H1('A Natural Language Processing Application for Reddit', className='title'),
@@ -217,6 +219,10 @@ def process_data(post_limit, post_url):
     submission.comments.replace_more(limit=post_limit)
 
     ## polarity calculations
+    # HEROKU not working for sentiment_df calculations?
+    #####################################
+    ######################################
+    ###############################
     sentiment_objects = [TextBlob(top_level_comment.body) for top_level_comment in submission.comments]
     sentiment_values = [[comment.sentiment.polarity, str(comment)] for comment in sentiment_objects]
     sentiment_df = pd.DataFrame(sentiment_values, columns=["Polarity", "Comment"])
@@ -379,7 +385,6 @@ def update_word_count(jsonified_cleaned_data):
     )
 
 # regression graph
-### REQUIRES ZERO
 @app.callback(
     Output('upvotes_polarity_graph', 'children'),
     [Input('polarity_value', 'children')]
@@ -401,7 +406,7 @@ def regression_graph(jsonified_cleaned_data):
         )
     )
     return html.Div(
-        [dcc.Graph(figure=fig)]
+        dcc.Graph(figure=fig)
     )
 
 #bigram
