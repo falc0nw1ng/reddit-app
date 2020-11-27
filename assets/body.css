@@ -1,0 +1,25 @@
+
+body {
+    margin: 0;
+    font-family: arial;
+    background-color:#1a1c23;
+    color:lightgrey;
+    width:96%;
+}
+
+.title {
+  margin-left: 10px;
+  font-family:Verdana;
+  background-color:#1a1c23;
+  color:#d46161
+
+}
+
+
+.mini-heading{
+  margin: 10px 20px 10px 50px;
+}
+
+.mini-title{
+
+}

@@ -1,0 +1,173 @@
+.sub-heading-container {
+    margin: 20px 0 0 100px;
+    width:100%
+    float:left;
+}
+
+.sub-heading-container .sub-heading{
+  font-size:15px;
+  margin-left: 15px;
+  font-style: italic;
+  color: grey;
+}
+
+.input-container{
+  float:left;
+  width:100%;
+  margin-left: 20px;
+  margin-bottom: 20px;
+  padding: 0px 5px 5px 5px;
+
+}
+
+.input-container .url-input-heading{
+  margin-right: 20px;
+  font-weight: bold;
+  float:left;
+}
+
+.input-container .url-input-inputs{
+  margin-left: 5px;
+  margin-top: 15px;
+}
+
+.first-row-container{
+  width:100%;
+  margin: 10px 20px 10px 20px;
+  border: 2px lightgrey solid;
+  display:table;
+}
+
+.box-statistics-container{
+  float:left;
+  padding: 3px 3px 3px 3px;
+  width:40%;
+  margin: 10px 20px 10px 20px;
+  border-right: 3px grey solid;
+
+}
+
+.box-statistics-container .comment-headings{
+  color: #d46161;
+  font-weight: bold;
+}
+
+.box-statistics-container .comment {
+  font-style: italic;
+  margin-left:10px;
+  color:grey;
+}
+
+.box-statistics-container .comment2 {
+  margin-left:10px;
+}
+
+.user-text-input-container{
+  float:left;
+  width:50%;
+  margin: 10px 20px 10px 20px;
+  overflow:hidden;
+}
+
+.user-text-input-container .input-heading{
+  margin-left: 10px;
+}
+
+.user-text-input-container .comment-input{
+  margin-left: 10px;
+}
+
+.user-results{
+  width:100%;
+  padding: 3px 3px 3px 3px;
+  overflow:hidden;
+}
+
+
+.second-row-container{
+  width:100%;
+  border: 2px lightgrey solid;
+  margin: 10px 20px 10px 20px;
+  text-align: center;
+  display:table;
+}
+
+.polarity-histogram{
+  width:30%;
+  float:left;
+}
+
+.upvotes-regression-graph{
+  width:30%;
+  float:left;
+}
+
+.word-count-graph{
+  width:33%;
+  float:left;
+}
+
+
+.third-row-container{
+  width:100%;
+  margin: 10px 20px 10px 20px;
+  padding: 4px 4px 4px 4px;
+}
+
+.radioitem-container{
+  text-align: left;
+  margin-left: 60px;
+}
+
+.datatable {
+  width:48%;
+  float:left;
+  border-left: 2px lightgrey solid;
+  border-top: 2px lightgrey solid;
+  border-bottom: 2px lightgrey solid;
+}
+
+.TextBox {
+  width:50%;
+  float:left;
+  padding-left: 10px;
+  border-top: 2px lightgrey solid;
+  border-right: 2px lightgrey solid;
+  border-bottom: 2px lightgrey solid;
+}
+
+.TextBox-heading {
+  color:#d46161;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**/
