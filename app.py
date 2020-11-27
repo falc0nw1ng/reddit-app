@@ -15,7 +15,7 @@ from dash.dependencies import Output, Input
 import dash_table
 import plotly.express as px
 import plotly.graph_objects as go
-#nltk.download('stopwords')
+nltk.download('stopwords')
 
 #external_stylesheets = ["https://codepen.io/chriddyp/pen/bWLwgP.css"]
 
