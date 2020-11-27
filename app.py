@@ -56,8 +56,7 @@ def bigram_df(submission):
     terms_bigram = [list(bigrams(comment)) for comment in split_lower_no_stop]
     bigrams_c = list(itertools.chain(*terms_bigram))
     bigram_counts = collections.Counter(bigrams_c)
-    bigram_df = pd.DataFrame(bigram_counts.most_common(5),
-                             columns=['bigram', 'count'])
+    bigram_df = pd.DataFrame(bigram_counts.most_common(5),columns=['bigram', 'count'])
     return bigram_df
 
 
@@ -221,8 +220,6 @@ def process_data(post_limit, post_url):
     ## polarity calculations
     # HEROKU not working for sentiment_df calculations?
     #####################################
-    ######################################
-    ###############################
     sentiment_objects = [TextBlob(top_level_comment.body) for top_level_comment in submission.comments]
     sentiment_values = [[comment.sentiment.polarity, str(comment)] for comment in sentiment_objects]
     sentiment_df = pd.DataFrame(sentiment_values, columns=["Polarity", "Comment"])
