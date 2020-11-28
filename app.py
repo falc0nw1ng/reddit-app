@@ -16,6 +16,8 @@ import dash_table
 import plotly.express as px
 import plotly.graph_objects as go
 
+from wordcloud import WordCloud
+
 #nltk.doDELETEwnload('stopwords')
 # uncomment the above line and remove delete if running locally for the first time
 # heroku will not allow the mentioning of that line, even in the comments if it is to deploy properly
