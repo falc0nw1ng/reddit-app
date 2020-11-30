@@ -10,9 +10,11 @@ For polarity greater than x say "That is a very postive comment"
 
 
 current main red colour = #d46161
-backgroundcolor = #1a1c23 (very dark blue, basically a lightblack)
+backgroundcolor = #1a1c23 (a medium black)
+border colour = #3a3d4a
 
 
+good blue for graph color = #415085
 
 MAJOR FIXES
 FIX THE REGRESSION GRAPH?!?!?!?!
