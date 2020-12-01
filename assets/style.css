@@ -6,44 +6,54 @@
 
 .sub-heading-container .sub-heading{
   font-size:15px;
-  margin-left: 15px;
+  padding-left: 15px;
   font-style: italic;
   color: grey;
 }
 
 .input-container{
-  float:left;
   width:100%;
-  margin-left: 20px;
-  margin-bottom: 20px;
-  padding: 0px 5px 5px 5px;
-
+  padding-left: 20px;
+  padding-bottom: 20px;
 }
 
 .input-container .url-input-heading{
-  margin-right: 20px;
+  padding-right: 20px;
   font-weight: bold;
+  font-size: 25px;
+}
+
+.url-input-label{
+  color:lightgray;
+  width:12%;
   float:left;
 }
 
 .input-container .url-input-inputs{
+  padding: 10px 10px 10px 10px;
   margin-left: 5px;
-  margin-top: 15px;
+  background-color:#1a1c23;
+  color:grey;
+  font-size:18px;
+  border:none;
+  float:leftW
 }
 
-.first-row-container{
+.row-container{
   width:100%;
-  margin: 10px 20px 10px 20px;
-  border: 2px lightgrey solid;
+  padding: 10px 20px 10px 30px;
+  border: 1px #3a3d4a none;
   display:table;
+  text-align:center;
 }
+
 
 .box-statistics-container{
   float:left;
   padding: 3px 3px 3px 3px;
   width:40%;
   margin: 10px 20px 10px 20px;
-  border-right: 3px grey solid;
+  border-right: 3px grey none;
 
 }
 
@@ -75,21 +85,46 @@
 
 .user-text-input-container .comment-input{
   margin-left: 10px;
+  width: 100%;
 }
 
 .user-results{
   width:100%;
-  padding: 3px 3px 3px 3px;
+  padding: 3px 3px 3px 10px;
   overflow:hidden;
 }
 
 
-.second-row-container{
+/*Second Row - word count/word frequency*/
+.word-count-heading{
+  margin: 10px 20px 10px 50px;
+  font-size:24px;
+  font-weight:bold;
+  width:50%;
+}
+
+.word-count-graph{
+  width:35%;
+  margin-left:10px;
+  float:left;
+}
+
+
+.word-cloud-container {
+  margin-left:10%;
+  width:50%;
+  float:left;
+}
+
+.wordcloud{
   width:100%;
-  border: 2px lightgrey solid;
-  margin: 10px 20px 10px 20px;
-  text-align: center;
-  display:table;
+}
+
+
+/* Third row  - graphs*/
+.bigram-count {
+  float:left;
+  width:30%;
 }
 
 .polarity-histogram{
@@ -102,17 +137,6 @@
   float:left;
 }
 
-.word-count-graph{
-  width:33%;
-  float:left;
-}
-
-
-.third-row-container{
-  width:100%;
-  margin: 10px 20px 10px 20px;
-  padding: 4px 4px 4px 4px;
-}
 
 .radioitem-container{
   text-align: left;
@@ -122,18 +146,18 @@
 .datatable {
   width:48%;
   float:left;
-  border-left: 2px lightgrey solid;
-  border-top: 2px lightgrey solid;
-  border-bottom: 2px lightgrey solid;
+  border-left: 2px lightgrey none;
+  border-top: 2px lightgrey none;
+  border-bottom: 2px lightgrey none;
 }
 
 .TextBox {
   width:50%;
   float:left;
   padding-left: 10px;
-  border-top: 2px lightgrey solid;
-  border-right: 2px lightgrey solid;
-  border-bottom: 2px lightgrey solid;
+  border-top: 2px lightgrey none;
+  border-right: 2px lightgrey none;
+  border-bottom: 2px lightgrey none;
 }
 
 .TextBox-heading {

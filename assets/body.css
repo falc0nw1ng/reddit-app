@@ -1,10 +1,11 @@
 
 body {
-    margin: 0;
+    margin: auto;
     font-family: arial;
     background-color:#1a1c23;
     color:lightgrey;
-    width:96%;
+    width:100%;
+    overflow-x:hidden;
 }
 
 .title {
@@ -15,11 +16,9 @@ body {
 
 }
 
-
 .mini-heading{
   margin: 10px 20px 10px 50px;
-}
-
-.mini-title{
-
+  font-size:24px;
+  font-weight:bold;
+  width:50%;
 }

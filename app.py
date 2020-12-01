@@ -16,9 +16,20 @@ import dash_table
 import plotly.express as px
 import plotly.graph_objects as go
 
+<<<<<<< HEAD
 #nltk.dDELETETHISIFRUNNINGONLOCALMACHINEFORTHEFIRSTTIMEownload('stopwords')
 #
 #external_stylesheets = ["https://codepen.io/chriddyp/pen/bWLwgP.css"]
+=======
+from io import BytesIO
+from wordcloud import WordCloud
+import base64
+
+#nltk.doDELETEwnload('stopwords')
+# uncomment the above line and remove delete if running locally for the first time
+# heroku will not allow the mentioning of that line, even in the comments if it is to deploy properly
+
+>>>>>>> master
 
 reddit = praw.Reddit(
     client_id="q3i_JQwcT6LiVQ",
@@ -41,6 +52,13 @@ def word_count_df(submission):
     clean_df = pd.DataFrame(all_words_counts.most_common(10), columns=['words', 'count'])
     return clean_df
 
+# wordcloud
+def plot_wordcloud(dataframe):
+    d = {a:x for a,x in dataframe.values}
+    wc = WordCloud(background_color='#1a1c23')
+    wc.fit_words(d)
+    return wc.to_image()
+
 
 # constructs bigrams from post
 def bigram_df(submission):
@@ -55,8 +73,7 @@ def bigram_df(submission):
     terms_bigram = [list(bigrams(comment)) for comment in split_lower_no_stop]
     bigrams_c = list(itertools.chain(*terms_bigram))
     bigram_counts = collections.Counter(bigrams_c)
-    bigram_df = pd.DataFrame(bigram_counts.most_common(5),
-                             columns=['bigram', 'count'])
+    bigram_df = pd.DataFrame(bigram_counts.most_common(5),columns=['bigram', 'count'])
     return bigram_df
 
 
@@ -65,7 +82,10 @@ tab_style = {
     'font-weight': 'bold',
     'color': '#d46161',
     'backgroundColor':'#1a1c23',
-
+    'border-top':'none',
+    'border-left':'none',
+    'border-right':'none',
+    'border-bottom': '2px grey none',
 }
 
 
@@ -74,7 +94,10 @@ tab_selected_style = {
     'font-weight': 'bold',
     'color': '#d46161',
     'backgroundColor':'#4f4f4f',
-
+    'border-top':'none',
+    'border-left':'none',
+    'border-right':'none',
+    'border-bottom':'2px grey none',
 }
 
 
@@ -92,10 +115,8 @@ app.layout = html.Div([
         value='post_sentiment',
         children=[
             dcc.Tab(value='post_sentiment', label='Reddit Sentiment Analysis',style=tab_style, selected_style=tab_selected_style ),
-            ## replace with red heading from below
-            ## make background white on select and grey when not selecting
             dcc.Tab(value='subreddit_sentiment', label='Topic Modelling using LDA',style=tab_style, selected_style=tab_selected_style)
-        ]),
+        ], style={'width':'100%', 'margin':'auto'}),
     html.Div(id='render'),
     html.Div([
         html.Br(),
@@ -103,7 +124,7 @@ app.layout = html.Div([
         html.A("@TheRealMapleJordan", href = "https://therealmaplejordan.com/"),
         html.Br(),
     ],style={'float':'right'})
-])
+],)
 
 post_page = html.Div([
     html.Div(
@@ -114,21 +135,22 @@ post_page = html.Div([
     html.Div(
         className='input-container',
         children=[
-            html.P('Start by entering the number of comments and URL of a Reddit post here:', className='url-input-heading'),
-            dcc.Input(id='post_limit', type='number', placeholder='post number', value=20, size='5', className='url-input-inputs'),
+            html.P('Start by entering the URL of a Reddit post here:', className='url-input-heading'),
             dcc.Input(id="post_url", type="url", placeholder="url", size='50', className='url-input-inputs' ,
                   value='https://www.reddit.com/r/leagueoflegends/comments/jnm2qu/how_a_post_on_rleagueoflegends_got_me_from_bronze/'),
+            html.P('Number of Comments:', className='url-input-label'),
+            dcc.Input(id='post_limit', type='number', placeholder='post number', value=20, size='5', className='url-input-inputs'),
     ]),
     # hidden div
     html.Div(id='word_count_value', style={'display': 'none'}),
     html.Div(id='polarity_value', style={'display': 'none'}),
     html.Div(id='bigram_value', style={'display':'none'}),
     html.Div(
-        className='mini-heading',
+        className='row-container',
         children=[
-            html.H3('Comment Statistics', className='mini-title'),]),
+            html.H3('Comment Statistics', className='mini-heading'),]),
     html.Div(
-        className='first-row-container',
+        className='row-container',
         children=[
             html.Div(
                 className='box-statistics-container',
@@ -139,19 +161,25 @@ post_page = html.Div([
                 className='user-text-input-container',
                 children=[
                     html.H3('Enter a piece of text here to see what the sentiment and subjectivity is!', className='input-heading'),
-                    dcc.Input(id='user_text_input', type='text', placeholder='insert some text here',
-                            value='TheRealMapleJordan creates amazing content!', size='80', className='comment-input'),
+                    dcc.Textarea(id='user_text_input', placeholder='insert some text here',
+                            value='TheRealMapleJordan creates amazing content!', draggable=False, className='comment-input'),
                     html.Div(id='user_text_input_polarity')
                 ]),
         ]),
+        # second row
     html.Div(
-        className='mini-heading',
+        className='row-container',
         children=[
-            html.H3('Sentiment Analysis for the Entire Post (first order tree)'),
-        ],style={'width':'100%'}),
+            html.H3('Word Count', className='mini-heading'),
+            html.Div(id='word_count_graph', ),
+            html.Div(id='word_cloud', className='word-cloud-container'),
+        ]),
+        # third row
     html.Div(
-        className='second-row-container',
+        className='row-container',
         children=[
+            html.H3('Bigram and Upvotes', className='mini-heading'),
+            html.Div(id='bigram_count', className='bigram-count'),
             html.Div(
                className='polarity-histogram',
                children=[
@@ -162,16 +190,11 @@ post_page = html.Div([
                 children=[
                     html.Div(id='upvotes_polarity_graph')
                     ]),
-            html.Div(
-                className='word-count-graph',
-                children=[
-                    html.Div(id='word_count_graph'),
-                ]),
         ]),
     html.Div(
-        className='mini-heading',
+        className='row-container',
         children=[
-            html.H3('Most Positive or Most Negative Feed'),
+            html.H3('Postive or Negative Feed', className='mini-heading'),
         ]),
     html.Div(
         className='radioitem-container',
@@ -182,15 +205,13 @@ post_page = html.Div([
                            )
         ]),
     html.Div(
-        className='third-row-container',
+        className='row-container',
         children=[
             html.Div(className='datatable'
                      ,id='polarity_datatable'),
-
             html.Div(
                 className='TextBox',
                 children=[
-                    html.Div(id='bigram_count'),
                     html.H3('Notes about Sentiment Analysis', className='TextBox-heading'),
                     html.P('The sentiment analysis program used in this application is VADER (Valence Aware Dictionary and Sentiment Reasoner). VADER was created specifically for analyzing social media platforms. However one main issue with all sentiment analysis tools is they have a difficult time figuring out sarcasm. Try it yourself by clicking the negative option on the left and see how many sarcastic comments are label with a negative polarity!'),
                     html.Br(),
@@ -218,10 +239,12 @@ def process_data(post_limit, post_url):
     submission.comments.replace_more(limit=post_limit)
 
     ## polarity calculations
+    # HEROKU not working for sentiment_df calculations?
+    #####################################
     sentiment_objects = [TextBlob(top_level_comment.body) for top_level_comment in submission.comments]
     sentiment_values = [[comment.sentiment.polarity, str(comment)] for comment in sentiment_objects]
     sentiment_df = pd.DataFrame(sentiment_values, columns=["Polarity", "Comment"])
-    sentiment_df['Polarity'].round(2)
+    sentiment_df = sentiment_df.round(2)
     #upvotes for comments
     upvotes = [top_level_comment.score for top_level_comment in submission.comments]
     sentiment_df['Upvotes'] = upvotes
@@ -236,7 +259,7 @@ def process_data(post_limit, post_url):
 )
 def box_stat(jsonified_cleaned_data):
     sentiment_df = pd.read_json(jsonified_cleaned_data, orient='split')
-    polarity_no_zeros_df = sentiment_df[sentiment_df['Polarity'] != 0]
+    polarity_no_zeros_df = sentiment_df[sentiment_df['Polarity'] != 0].round(2)
     most_upvotes_df = polarity_no_zeros_df.sort_values(by='Upvotes', ascending=False)
     most_upvotes_comment = most_upvotes_df.iloc[0]['Comment']
     most_upvotes_upvotes = most_upvotes_df.iloc[0]['Upvotes']
@@ -280,8 +303,8 @@ def box_stat(jsonified_cleaned_data):
 )
 def input_polarity(user_text_input):
     TextBlob_object = TextBlob(user_text_input)
-    text_polarity = TextBlob_object.sentiment.polarity
-    text_subjectivity = TextBlob_object.sentiment.subjectivity
+    text_polarity = round(TextBlob_object.sentiment.polarity,2)
+    text_subjectivity = round(TextBlob_object.sentiment.subjectivity,2)
 
     return html.Div(
                 className='user-results',
@@ -289,8 +312,19 @@ def input_polarity(user_text_input):
                     html.P('Input: {}'.format(user_text_input)),
                     html.P('Polarity: {}' .format(text_polarity)),
                     html.P('Subjectivity: {}' .format(text_subjectivity))
-                ]
-    )
+                ])
+
+
+#### post sentiment analysis
+## wordcloud
+@app.callback(Output('word_cloud', 'children'), [Input('word_count_value', 'children')])
+def make_image(jsonified_cleaned_data):
+    df = pd.read_json(jsonified_cleaned_data, orient='split')
+    img = BytesIO()
+    plot_wordcloud(dataframe=df).save(img, format='PNG')
+    wordcloud_pic = 'data:image/png;base64,{}'.format(base64.b64encode(img.getvalue()).decode())
+    return html.Img(id="image_wc", src = wordcloud_pic, className='wordcloud'),
+
 
 
 ### for histogram
@@ -308,8 +342,15 @@ def polarity_graph(jsonified_cleaned_data):
     fig.update_layout(
         title='Post Polarity (removing neutral polarity)',
         paper_bgcolor='#1a1c23',
+        plot_bgcolor='#1a1c23',
         font=dict(
-            color='#d46161')
+            color='#d46161'),
+        xaxis=dict(
+            title='Polarity',
+        ),
+        yaxis=dict(
+            title='Count',
+            gridcolor='#3a3d4a'),
 
     )
 
@@ -365,44 +406,57 @@ def update_word_count(jsonified_cleaned_data):
             y=clean_df['words'].iloc[::-1],
             orientation='h',
             marker=dict(
-                color='orange'
+                color='#db8a27'
             )
         )
     )
     fig.update_layout(
         title='Most Common Words (minus stopwords)',
         paper_bgcolor='#1a1c23',
+        plot_bgcolor='#1a1c23',
         font=dict(
             color='#d46161'),
+        xaxis=dict(
+            title='Count',
+            gridcolor='#3a3d4a'),
+        yaxis=dict(
+            title='Words',
+            gridcolor='#1a1c23'
+            )
     )
     return html.Div(
-        dcc.Graph(figure=fig)
-    )
+                className='word-count-graph',
+                children=[
+                    dcc.Graph(figure=fig)], )
 
 # regression graph
-### REQUIRES ZERO
 @app.callback(
     Output('upvotes_polarity_graph', 'children'),
     [Input('polarity_value', 'children')]
 )
 def regression_graph(jsonified_cleaned_data):
     data_df = pd.read_json(jsonified_cleaned_data, orient='split')
-    fig = px.scatter(data_df, x='Polarity', y='Upvotes', trendline='ols', trendline_color_override='red')
+    fig = px.scatter(data_df, x='Polarity', y='Upvotes',  trendline='ols', trendline_color_override='#d46161',)
     fig.update_layout(
         title='Upvotes vs Polarity',
         paper_bgcolor='#1a1c23',
+        plot_bgcolor='#1a1c23',
         font=dict(
             color='#d46161'
         ),
         xaxis=dict(
-            title='Polarity'
+            title='Polarity',
+            gridcolor='#3a3d4a',
+            zeroline=False,
         ),
         yaxis=dict(
-            title='Upvotes'
+            title='Upvotes',
+            gridcolor='#3a3d4a',
+            zeroline=False,
         )
     )
     return html.Div(
-        [dcc.Graph(figure=fig)]
+        dcc.Graph(figure=fig)
     )
 
 #bigram
@@ -418,14 +472,24 @@ def create_bigram(jsonified_cleaned_data):
                 children=[
                     #html.P('Bigrams are pairs of words that follow each other'),
                     html.H3('Most common bigrams (word pairings) are the following:', className='TextBox-heading'),
-                    html.P('({0}, {1}), count: {2}' .format(bigram_df['bigram'][0][0], bigram_df['bigram'][0][1], bigram_df['count'][0])),
-                    html.P('({0}, {1}), count: {2}' .format(bigram_df['bigram'][1][0], bigram_df['bigram'][1][1], bigram_df['count'][1])),
-                    html.P('({0}, {1}), count: {2}' .format(bigram_df['bigram'][2][0], bigram_df['bigram'][2][1], bigram_df['count'][2])),
+                    html.P('({0}-{1}), count: {2}' .format(bigram_df['bigram'][0][0], bigram_df['bigram'][0][1], bigram_df['count'][0])),
+                    html.P('({0}-{1}), count: {2}' .format(bigram_df['bigram'][1][0], bigram_df['bigram'][1][1], bigram_df['count'][1])),
+                    html.P('({0}-{1}), count: {2}' .format(bigram_df['bigram'][2][0], bigram_df['bigram'][2][1], bigram_df['count'][2])),
+                    html.P('({0}-{1}), count: {2}' .format(bigram_df['bigram'][3][0], bigram_df['bigram'][3][1], bigram_df['count'][3])),
+                    html.P('({0}-{1}), count: {2}' .format(bigram_df['bigram'][4][0], bigram_df['bigram'][4][1], bigram_df['count'][4])),
 
                 ])
-#sentiment_df = pd.DataFrame(sentiment_values, columns=["Polarity", "Comment"])
+#bigram graph
+'''
+@app.callback(
+    Output('bigram_graph', 'children')
+    [Input('bigram_value', 'children')])
 
-####
+'''
+
+
+
+#### tab control
 @app.callback(
     Output('render', 'children'),
     [Input('main_tabs', 'value')]
