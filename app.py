@@ -94,13 +94,10 @@ tab_selected_style = {
     'border-bottom':'2px grey none',
 }
 
-
-
-
-
 app = dash.Dash(__name__, )
-app.title = "Reddit Sentiment Analysis"
+app.title = "Reddit NLP Analysis"
 app.config.suppress_callback_exceptions = True
+server = app.server
 
 app.layout = html.Div([
     html.H1('A Natural Language Processing Application for Reddit', className='title'),
