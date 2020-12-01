@@ -426,7 +426,10 @@ def update_word_count(jsonified_cleaned_data):
 )
 def regression_graph(jsonified_cleaned_data):
     data_df = pd.read_json(jsonified_cleaned_data, orient='split')
-    fig = px.scatter(data_df, x='Polarity', y='Upvotes',  trendline='ols', trendline_color_override='#d46161',)
+    fig =  go.Figure(
+        go.Scatter(x=data_df.Polarity, y=data_df.Upvotes, marker=dict(color='#415085'), mode='markers')
+    )
+#    fig = px.scatter(data_df, x='Polarity', y='Upvotes', #trendline='ols', trendline_color_override='#d46161'    )
     fig.update_layout(
         title='Upvotes vs Polarity',
         paper_bgcolor='#1a1c23',
