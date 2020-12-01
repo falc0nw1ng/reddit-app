@@ -16,11 +16,6 @@ import dash_table
 import plotly.express as px
 import plotly.graph_objects as go
 
-<<<<<<< HEAD
-#nltk.dDELETETHISIFRUNNINGONLOCALMACHINEFORTHEFIRSTTIMEownload('stopwords')
-#
-#external_stylesheets = ["https://codepen.io/chriddyp/pen/bWLwgP.css"]
-=======
 from io import BytesIO
 from wordcloud import WordCloud
 import base64
@@ -29,7 +24,6 @@ import base64
 # uncomment the above line and remove delete if running locally for the first time
 # heroku will not allow the mentioning of that line, even in the comments if it is to deploy properly
 
->>>>>>> master
 
 reddit = praw.Reddit(
     client_id="q3i_JQwcT6LiVQ",
