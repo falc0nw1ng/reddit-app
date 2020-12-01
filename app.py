@@ -141,11 +141,11 @@ post_page = html.Div([
     html.Div(id='polarity_value', style={'display': 'none'}),
     html.Div(id='bigram_value', style={'display':'none'}),
     html.Div(
-        className='mini-heading',
+        className='row-container',
         children=[
             html.H3('Comment Statistics', className='mini-heading'),]),
     html.Div(
-        className='first-row-container',
+        className='row-container',
         children=[
             html.Div(
                 className='box-statistics-container',
@@ -162,10 +162,10 @@ post_page = html.Div([
                 ]),
         ]),
         # second row
-
     html.Div(
         className='row-container',
         children=[
+            html.H3('Word Count', className='mini-heading'),
             html.Div(id='word_count_graph', ),
             html.Div(id='word_cloud', className='word-cloud-container'),
         ]),
@@ -173,8 +173,8 @@ post_page = html.Div([
     html.Div(
         className='row-container',
         children=[
+            html.H3('Bigram and Upvotes', className='mini-heading'),
             html.Div(id='bigram_count', className='bigram-count'),
-    #        html.Div(id='bigram_graph', className='bigram-graph'),
             html.Div(
                className='polarity-histogram',
                children=[
@@ -187,9 +187,9 @@ post_page = html.Div([
                     ]),
         ]),
     html.Div(
-        className='mini-heading',
+        className='row-container',
         children=[
-            html.H3('Most Positive or Most Negative Feed'),
+            html.H3('Postive or Negative Feed', className='mini-heading'),
         ]),
     html.Div(
         className='radioitem-container',
@@ -239,7 +239,7 @@ def process_data(post_limit, post_url):
     sentiment_objects = [TextBlob(top_level_comment.body) for top_level_comment in submission.comments]
     sentiment_values = [[comment.sentiment.polarity, str(comment)] for comment in sentiment_objects]
     sentiment_df = pd.DataFrame(sentiment_values, columns=["Polarity", "Comment"])
-    sentiment_df['Polarity'] = sentiment_df['Polarity'].round(2)
+    sentiment_df = sentiment_df.round(2)
     #upvotes for comments
     upvotes = [top_level_comment.score for top_level_comment in submission.comments]
     sentiment_df['Upvotes'] = upvotes
@@ -254,7 +254,7 @@ def process_data(post_limit, post_url):
 )
 def box_stat(jsonified_cleaned_data):
     sentiment_df = pd.read_json(jsonified_cleaned_data, orient='split')
-    polarity_no_zeros_df = sentiment_df[sentiment_df['Polarity'] != 0]
+    polarity_no_zeros_df = sentiment_df[sentiment_df['Polarity'] != 0].round(2)
     most_upvotes_df = polarity_no_zeros_df.sort_values(by='Upvotes', ascending=False)
     most_upvotes_comment = most_upvotes_df.iloc[0]['Comment']
     most_upvotes_upvotes = most_upvotes_df.iloc[0]['Upvotes']
@@ -298,8 +298,8 @@ def box_stat(jsonified_cleaned_data):
 )
 def input_polarity(user_text_input):
     TextBlob_object = TextBlob(user_text_input)
-    text_polarity = TextBlob_object.sentiment.polarity
-    text_subjectivity = TextBlob_object.sentiment.subjectivity
+    text_polarity = round(TextBlob_object.sentiment.polarity,2)
+    text_subjectivity = round(TextBlob_object.sentiment.subjectivity,2)
 
     return html.Div(
                 className='user-results',

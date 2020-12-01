@@ -20,7 +20,7 @@
 .input-container .url-input-heading{
   padding-right: 20px;
   font-weight: bold;
-
+  font-size: 25px;
 }
 
 .url-input-label{
@@ -44,6 +44,7 @@
   padding: 10px 20px 10px 30px;
   border: 1px #3a3d4a none;
   display:table;
+  text-align:center;
 }
 
 
@@ -95,6 +96,12 @@
 
 
 /*Second Row - word count/word frequency*/
+.word-count-heading{
+  margin: 10px 20px 10px 50px;
+  font-size:24px;
+  font-weight:bold;
+  width:50%;
+}
 
 .word-count-graph{
   width:35%;
@@ -104,8 +111,8 @@
 
 
 .word-cloud-container {
-  margin-left:10px;
-  width:60%;
+  margin-left:10%;
+  width:50%;
   float:left;
 }
 
@@ -115,14 +122,14 @@
 
 
 /* Third row  - graphs*/
-.polarity-histogram{
-  width:30%;
-  float:left;
-}
-
 .bigram-count {
   float:left;
   width:30%;
+}
+
+.polarity-histogram{
+  width:30%;
+  float:left;
 }
 
 .upvotes-regression-graph{
