@@ -128,7 +128,7 @@ post_page = html.Div([
         children=[
             html.P('Start by entering the URL of a Reddit post here:', className='url-input-heading'),
             dcc.Input(id="post_url", type="url", placeholder="url", size='50', className='url-input-inputs' ,
-                  value='https://www.reddit.com/r/leagueoflegends/comments/jnm2qu/how_a_post_on_rleagueoflegends_got_me_from_bronze/'),
+                  value='https://www.reddit.com/r/Coronavirus/comments/k3weur/absolutely_remarkable_no_one_who_got_modernas/'),
             html.P('Number of Comments:', className='url-input-label'),
             dcc.Input(id='post_limit', type='number', placeholder='post number', value=20, size='5', className='url-input-inputs'),
     ]),
