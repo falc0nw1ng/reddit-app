@@ -19,7 +19,6 @@ import plotly.graph_objects as go
 from io import BytesIO
 from wordcloud import WordCloud
 import base64
-from wordcloud import WordCloud
 
 #nltk.doDELETEwnload('stopwords')
 # uncomment the above line and remove delete if running locally for the first time
