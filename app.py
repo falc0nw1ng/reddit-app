@@ -224,7 +224,6 @@ subreddit_page = html.Div(
     [Input('post_limit', 'value'),
      Input('post_url', 'value')]
 )
-
 def process_data(post_limit, post_url):
     submission = reddit.submission(url=post_url)
     submission.comments.replace_more(limit=post_limit)
@@ -315,7 +314,6 @@ def make_image(jsonified_cleaned_data):
     plot_wordcloud(dataframe=df).save(img, format='PNG')
     wordcloud_pic = 'data:image/png;base64,{}'.format(base64.b64encode(img.getvalue()).decode())
     return html.Img(id="image_wc", src = wordcloud_pic, className='wordcloud'),
-
 
 
 ### for histogram
@@ -420,6 +418,7 @@ def update_word_count(jsonified_cleaned_data):
                 children=[
                     dcc.Graph(figure=fig)], )
 
+
 # regression graph
 @app.callback(
     Output('upvotes_polarity_graph', 'children'),
@@ -450,6 +449,7 @@ def regression_graph(jsonified_cleaned_data):
         dcc.Graph(figure=fig)
     )
 
+
 #bigram
 @app.callback(
     Output('bigram_count', 'children'),
@@ -470,14 +470,6 @@ def create_bigram(jsonified_cleaned_data):
                     html.P('({0}-{1}), count: {2}' .format(bigram_df['bigram'][4][0], bigram_df['bigram'][4][1], bigram_df['count'][4])),
 
                 ])
-#bigram graph
-'''
-@app.callback(
-    Output('bigram_graph', 'children')
-    [Input('bigram_value', 'children')])
-
-'''
-
 
 
 #### tab control
