@@ -111,8 +111,7 @@ app.layout = html.Div([
     html.Div(id='render'),
     html.Div([
         html.Br(),
-        html.Br(),
-        html.A("@TheRealMapleJordan", href = "https://therealmaplejordan.com/"),
+        html.A("@TheRealMapleJordan", href = "https://therealmaplejordan.com/", style={'padding-right':'10px', 'padding-bottom':'10px'}),
         html.Br(),
     ],style={'float':'right'})
 ],)
@@ -126,12 +125,19 @@ post_page = html.Div([
     html.Div(
         className='input-container',
         children=[
-            html.P('Start by entering the URL of a Reddit post here:', className='url-input-heading'),
-            dcc.Input(id="post_url", type="url", placeholder="url", size='50', className='url-input-inputs' ,
+            html.Strong('Start', className='red-text'),
+            html.Span('by entering the URL of a Reddit post here:',className='url-input-heading'),
+            dcc.Input(id="post_url", type="url", placeholder="url", size='70', className='url-input-inputs' ,
                   value='https://www.reddit.com/r/Coronavirus/comments/k3weur/absolutely_remarkable_no_one_who_got_modernas/'),
-            html.P('Number of Comments:', className='url-input-label'),
-            dcc.Input(id='post_limit', type='number', placeholder='post number', value=20, size='5', className='url-input-inputs'),
+
     ]),
+    html.Div(
+        className='input-container',
+        children=[
+            html.Strong('Number of Comments:', className='url-input-heading'),
+            dcc.Input(id='post_limit', type='number', placeholder='post number', value=20, size='5', className='url-input-inputs2'),
+        ]
+    ),
     # hidden div
     html.Div(id='word_count_value', style={'display': 'none'}),
     html.Div(id='polarity_value', style={'display': 'none'}),
@@ -151,6 +157,7 @@ post_page = html.Div([
             html.Div(
                 className='user-text-input-container',
                 children=[
+                    html.P('Polarity is a value between -1 and 1 that determines how positive or negative the sentiment is as detected by the AI. Subjectivity is similar but ranges from 0 - 1 and determines a subjective vs factual statement.', style={'textAlign':'left', 'font-size':'18px', 'color':'grey'}),
                     html.H3('Enter a piece of text here to see what the sentiment and subjectivity is!', className='input-heading'),
                     dcc.Textarea(id='user_text_input', placeholder='insert some text here',
                             value='TheRealMapleJordan creates amazing content!', draggable=False, className='comment-input'),
@@ -299,9 +306,16 @@ def input_polarity(user_text_input):
     return html.Div(
                 className='user-results',
                 children=[
-                    html.P('Input: {}'.format(user_text_input)),
-                    html.P('Polarity: {}' .format(text_polarity)),
-                    html.P('Subjectivity: {}' .format(text_subjectivity))
+                    html.Strong('Input: ', className='bold'),
+                    html.Span(user_text_input, className='normal-text'),
+                    html.Br(),
+                    html.Br(),
+                    html.Strong('Input: ', className='bold'),
+                    html.Span(text_polarity, className='normal-text'),
+                    html.Br(),
+                    html.Br(),
+                    html.Strong('Input: ', className='bold'),
+                    html.Span(text_subjectivity, className='normal-text')
                 ])
 
 
@@ -426,10 +440,9 @@ def update_word_count(jsonified_cleaned_data):
 )
 def regression_graph(jsonified_cleaned_data):
     data_df = pd.read_json(jsonified_cleaned_data, orient='split')
-    fig =  go.Figure(
-        go.Scatter(x=data_df.Polarity, y=data_df.Upvotes, marker=dict(color='#415085'), mode='markers')
-    )
-#    fig = px.scatter(data_df, x='Polarity', y='Upvotes', #trendline='ols', trendline_color_override='#d46161'    )
+    #fig =  go.Figure(
+    #    go.Scatter(x=data_df.Polarity, y=data_df.Upvotes, marker=dict(color='#415085'), mode='markers'))
+    fig = px.scatter(data_df, x='Polarity', y='Upvotes', trendline='ols', trendline_color_override='#d46161')
     fig.update_layout(
         title='Upvotes vs Polarity',
         paper_bgcolor='#1a1c23',

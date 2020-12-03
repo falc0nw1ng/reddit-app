@@ -11,3 +11,4 @@ nltk==3.5
 praw==7.1.0
 textblob==0.15.3
 wordcloud==1.8.1
+statsmodels==0.12.1

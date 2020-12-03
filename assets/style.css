@@ -5,39 +5,55 @@
 }
 
 .sub-heading-container .sub-heading{
-  font-size:15px;
+  font-size:20px;
   padding-left: 15px;
   font-style: italic;
   color: grey;
 }
 
 .input-container{
-  width:100%;
+  width:47%;
   padding-left: 20px;
-  padding-bottom: 20px;
-}
-
-.input-container .url-input-heading{
-  padding-right: 20px;
-  font-weight: bold;
-  font-size: 25px;
-}
-
-.url-input-label{
-  color:lightgray;
-  width:12%;
   float:left;
 }
 
+.input-container .red-text{
+  font-weight: bold;
+  font-size: 25px;
+  width:10%;
+  float: left;
+  color:#d46161;
+  display:flex;
+}
+
+.input-container .url-input-heading{
+  font-weight: bold;
+  font-size: 25px;
+  width:80%;
+  float: left;
+}
+
+
 .input-container .url-input-inputs{
-  padding: 10px 10px 10px 10px;
-  margin-left: 5px;
+  margin-top:15px;
   background-color:#1a1c23;
   color:grey;
   font-size:18px;
   border:none;
-  float:leftW
+  width:70%;
+  float:left;
 }
+
+.input-container .url-input-inputs2{
+  margin-top:15px;
+  background-color:#1a1c23;
+  color:grey;
+  font-size:18px;
+  border:none;
+  width:20%;
+  float:left;
+}
+
 
 .row-container{
   width:100%;
@@ -47,6 +63,7 @@
   text-align:center;
 }
 
+/*first row*/
 
 .box-statistics-container{
   float:left;
@@ -90,8 +107,21 @@
 
 .user-results{
   width:100%;
-  padding: 3px 3px 3px 10px;
+  padding: 5px 5px 30px 50px;
   overflow:hidden;
+}
+
+.user-results .bold{
+  text-align:center;
+  font-weight: bold;
+  float: left;
+  white-space: pre-wrap;
+}
+
+.user-results .normal-text{
+  float:left;
+  text-align:center;
+  white-space: pre-wrap;
 }
 
 
@@ -146,14 +176,15 @@
 .datatable {
   width:48%;
   float:left;
-  border-left: 2px lightgrey none;
+  border-left: 1px lightgrey solid;
   border-top: 2px lightgrey none;
   border-bottom: 2px lightgrey none;
 }
 
 .TextBox {
-  width:50%;
+  width:45%;
   float:left;
+  margin-right:30px;
   padding-left: 10px;
   border-top: 2px lightgrey none;
   border-right: 2px lightgrey none;
