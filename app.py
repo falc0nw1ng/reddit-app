@@ -132,7 +132,7 @@ post_page = html.Div([
 
     ]),
     html.Div(
-        className='input-container',
+        className='input-container2',
         children=[
             html.Strong('Number of Comments:', className='url-input-heading'),
             dcc.Input(id='post_limit', type='number', placeholder='post number', value=20, size='5', className='url-input-inputs2'),
@@ -192,13 +192,13 @@ post_page = html.Div([
     html.Div(
         className='row-container',
         children=[
-            html.H3('Postive or Negative Feed', className='mini-heading'),
+            html.H3('Filter by Most Positive, Most Negative and Most Upvotes', className='mini-heading'),
         ]),
     html.Div(
         className='radioitem-container',
         children=[
             dcc.RadioItems(id='negative_positive_radioitem',
-                   options=[{'label': i, 'value': i} for i in ['Positive', 'Negative']],
+                   options=[{'label': i, 'value': i} for i in ['Positive', 'Negative', 'Upvotes']],
                    value='Positive'
                            )
         ]),
@@ -319,8 +319,7 @@ def input_polarity(user_text_input):
                 ])
 
 
-#### post sentiment analysis
-## wordcloud
+# word cloud
 @app.callback(Output('word_cloud', 'children'), [Input('word_count_value', 'children')])
 def make_image(jsonified_cleaned_data):
     df = pd.read_json(jsonified_cleaned_data, orient='split')
@@ -341,7 +340,6 @@ def polarity_graph(jsonified_cleaned_data):
     fig = go.Figure(data=go.Histogram(x=polarity_no_zeros_df['Polarity'], marker=dict(
                     color='#415085')
                     ))
-#    fig = px.histogram(polarity_no_zeros_df, x='Polarity')
     fig.update_layout(
         title='Post Polarity (removing neutral polarity)',
         paper_bgcolor='#1a1c23',
@@ -362,16 +360,16 @@ def polarity_graph(jsonified_cleaned_data):
     )
 
 
-# polarity datatable
+# polarity datatable for most positive, most negative and most upvotes
 @app.callback(
     Output('polarity_datatable', 'children'),
     [Input('polarity_value', 'children'),
      Input('negative_positive_radioitem', 'value')]
 )
-def polarity_datatable(jsonified_cleaned_data, neg_or_pos):
+def polarity_datatable(jsonified_cleaned_data, pos_neg_up):
     sentiment_df = pd.read_json(jsonified_cleaned_data, orient='split')
     polarity_no_zeros_df = sentiment_df[sentiment_df['Polarity'] != 0]
-    if neg_or_pos == 'Positive':
+    if pos_neg_up == 'Positive':
         datatable_df = polarity_no_zeros_df[polarity_no_zeros_df['Polarity'] > 0].head(6)
         datatable_df = datatable_df.sort_values(by='Polarity', ascending=False)
         if datatable_df.empty:
@@ -382,7 +380,20 @@ def polarity_datatable(jsonified_cleaned_data, neg_or_pos):
                     data=datatable_df.to_dict('records'), style_cell={'textAlign': 'left', 'whiteSpace': 'normal',
                     'height': 'auto','backgroundColor':'#1a1c23', 'color':'lightgrey' }, style_header = {'font-weight':'bold', }
                                                  )])
-    elif neg_or_pos == 'Negative':
+    elif pos_neg_up == 'Upvotes':
+        datatable_df = polarity_no_zeros_df[polarity_no_zeros_df['Upvotes'] > 0].head(6)
+        datatable_df = datatable_df.sort_values(by='Upvotes', ascending=False)
+        if datatable_df.empty:
+            return html.P('There are no comments with a positive upvote')
+        else:
+            return html.Div([dash_table.DataTable(
+                columns=[{'name': i, 'id': i} for i in datatable_df.columns],style_table={'overflowX': 'auto'},
+                    data=datatable_df.to_dict('records'), style_cell={'textAlign': 'left', 'whiteSpace': 'normal',
+                    'height': 'auto','backgroundColor':'#1a1c23', 'color':'lightgrey' }, style_header = {'font-weight':'bold', }
+                                                 )])
+
+
+    elif pos_neg_up == 'Negative':
         datatable_df = polarity_no_zeros_df[polarity_no_zeros_df['Polarity'] < 0].head(6)
         datatable_df = datatable_df.sort_values(by='Polarity', ascending=True)
         if datatable_df.empty:
@@ -397,8 +408,8 @@ def polarity_datatable(jsonified_cleaned_data, neg_or_pos):
 
 # for word count
 @app.callback(
-Output("word_count_graph", 'children'),
-[Input('word_count_value', 'children')]
+    Output("word_count_graph", 'children'),
+    [Input('word_count_value', 'children')]
 )
 def update_word_count(jsonified_cleaned_data):
     clean_df = pd.read_json(jsonified_cleaned_data, orient='split')
@@ -471,7 +482,6 @@ def regression_graph(jsonified_cleaned_data):
     Output('bigram_count', 'children'),
     [Input('bigram_value', 'children')]
 )
-
 def create_bigram(jsonified_cleaned_data):
     bigram_df = pd.read_json(jsonified_cleaned_data, orient='split')
     return html.Div(
