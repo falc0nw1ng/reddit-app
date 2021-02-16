@@ -118,7 +118,7 @@ app.layout = html.Div([
                 className='input-container',
                 children=[
                     html.Span('A ', className='title'),
-                    html.Span('Reddit ', className='title-span'),
+                    html.A('Reddit ', href='https://therealmaplejordan.com/', className='title-span', target='_blank'),
                     html.Span('NLP Analysis Application', className='title'),
                     html.H3('Enter Reddit post URL', className='input-heading'),
                     dcc.Input(id="post_url", type="url", placeholder="url", size='30' ,
@@ -158,7 +158,7 @@ app.layout = html.Div([
             html.Div(
                 className='hover-container',
                 children=[
-                    html.H3('Latent Semanitc Indexing', className='LSI-heading'),
+                    html.H3('Latent Semantic Indexing', className='LSI-heading'),
                     html.Span('Enter query parameters here to find similar comments in subreddit post (Be patient!)', className='LSI-hover'),
                 ]
             ),
