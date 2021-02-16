@@ -288,8 +288,8 @@ def render_page(tab_value, polarity_cleaned_data, wordcount_cleaned_data, LDA_cl
                 dcc.Graph(figure=fig3)
             ])
 
-        return html.Div('In Progress LDA topic modeling')
-    else:
+
+    elif tab_value == 'other':
         de = pd.read_json(wordcount_cleaned_data, orient='split')
         fig4 = go.Figure(go.Bar(x=de.Count.iloc[:8], y=de.Word.iloc[:8], orientation='h', marker=dict(color='#FF5700')))
         fig4.update_layout(
@@ -330,10 +330,11 @@ def render_page(tab_value, polarity_cleaned_data, wordcount_cleaned_data, LDA_cl
             className='word-frequency-container',
             children=[
                 dcc.Graph(figure=fig4, className='word-frequency'),
-                dcc.Graph(figure=fig5, className='word-frequency')
+                dcc.Graph(figure=fig5, className='bigram-frequency')
             ]
         )
-
+    else:
+        html.Div(html.P('ERROR!!!'))
 
 # LSI
 @app.callback(

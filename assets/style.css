@@ -131,28 +131,32 @@ background-color: #FF5700;*/
 
 .polarity-graph{
   float:left;
-  width:33vw;
+  width:50% !important;
 }
 
 .polarity-upvotes-graph{
   float:left;
   /*width:48%*/
-  width:33vw;
+  width:50% !important;
 }
 
 /*tab 2*/
 
 .sunburst-graph{
+  float: left;
   width:80%;
-  height:50vh;
 }
 
 /*tab 3*/
 
 .word-frequency{
   float:left;
-  width:60%;
-  height:50vh;
+  width:50% !important;
+}
+
+.bigram-frequency{
+  float:left;
+  width:50% !important;
 }
 
 /*LSI*/
