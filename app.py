@@ -158,7 +158,7 @@ app.layout = html.Div([
             html.Div(
                 className='hover-container',
                 children=[
-                    html.H3('Topic Modeling (LSI)', className='LSI-heading'),
+                    html.H3('Latent Semanitc Indexing', className='LSI-heading'),
                     html.Span('Enter query parameters here to find similar comments in subreddit post (Be patient!)', className='LSI-hover'),
                 ]
             ),
