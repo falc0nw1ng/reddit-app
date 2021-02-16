@@ -1,212 +1,223 @@
-.sub-heading-container {
-    margin: 20px 0 0 100px;
-    width:100%
-    float:left;
+/*tags and all pages*/
+
+body{
+  margin:0;
+  padding:0;
+  background-color:#1a1a1a !important;
+  font-family:'Helvetica' lighter !important;
+  width:100%;
 }
 
-.sub-heading-container .sub-heading{
-  font-size:20px;
-  padding-left: 15px;
-  font-style: italic;
-  color: grey;
+
+/*
+background-color: #FF5700;*/
+.container1{
+  float:left;
+  width:30%;
+}
+
+
+.title{
+  padding: 0;
+  margin:0;
+  font-weight:normal;
+  color:darkgray;
+  font-size:30px;
+}
+
+
+.title-span{
+  padding: 0;
+  margin:0;
+  font-weight:normal;
+  color:#FF5700;
+  font-size:30px;
+}
+
+.title-span:hover{
+  color:#ff7700;
 }
 
 .input-container{
-  width:55%;
-  padding-left: 20px;
-  float:left;
+  /*background-color:#333333;*/
+  padding: 50px 0 0 50px;
+  font-family:'Helvetica';
 }
 
-.input-container .red-text{
-  font-weight: bold;
-  font-size: 25px;
-  padding-right:10px;
-  float: left;
-  color:#d46161;
-  display:flex;
+.input-heading{
+  font-weight: lighter;
+  color:darkgray;
 }
 
-.input-container .url-input-heading{
-  font-weight: bold;
-  font-size: 25px;
-  float: left;
-}
-
-
-.input-container2{
-  width:41%;
-  padding-left: 20px;
-  float:left;
-}
-
-
-.input-container2 .url-input-heading{
-  font-weight: bold;
-  font-size: 25px;
-  float: left;
-}
-
-
-.input-container .url-input-inputs{
-  margin-top:15px;
-  background-color:#1a1c23;
-  color:grey;
-  font-size:18px;
-  border:none;
-  width:70%;
-  float:left;
-}
-
-.input-container2 .url-input-inputs2{
-  padding-left: 15px;
-  padding-right: 0;
-  background-color:#1a1c23;
-  color:grey;
-  font-size:20px;
-  border:none;
-  width:20%;
-  float:left;
-}
-
-
-.row-container{
-  width:100%;
-  padding: 10px 20px 10px 30px;
-  border: 1px #3a3d4a none;
-  display:table;
-  text-align:center;
-}
-
-/*first row*/
-
-.box-statistics-container{
-  float:left;
-  padding: 3px 3px 3px 3px;
-  width:40%;
-  margin: 10px 20px 10px 20px;
-  border-right: 3px grey none;
-
-}
-
-.box-statistics-container .comment-headings{
-  color: #d46161;
-  font-weight: bold;
-}
-
-.box-statistics-container .comment {
+.input-url{
+  background-color:#212121;
+  color:lightgray;
+  border-radius: 5px;
+  border-color:darkgray;
+  border-width:.5px;
   font-style: italic;
-  margin-left:10px;
-  color:grey;
+  padding:10px;
 }
 
-.box-statistics-container .comment2 {
-  margin-left:10px;
+.input-branch{
+  background-color:#212121;
+  color:lightgray;
+  border-radius: 5px;
+  border-color:darkgray;
+  border-width:.5px;
+  font-style: italic;
+  padding:10px;
 }
 
-.user-text-input-container{
+/*Post Statistics*/
+
+.post-statistics-container{
+  padding: 0 0 0 50px;
+}
+
+.post-statistics-heading{
+  font-weight: lighter;
+  color:darkgray;
+  font-family:'Helvetica';
+}
+
+.post-statistics-stats {
+  color:darkgray;
+  font-weight: lighter;
+  font-family:'Helvetica';
+}
+
+
+
+/*Tab Outputs*/
+.tab-container{
   float:left;
-  width:50%;
-  margin: 10px 20px 10px 20px;
-  overflow:hidden;
+  padding: 50px 0 15px 15px;
+  width:66vw;
+
 }
 
-.user-text-input-container .input-heading{
-  margin-left: 10px;
-}
-
-.user-text-input-container .comment-input{
-  margin-left: 10px;
-  width: 100%;
-}
-
-.user-results{
-  width:100%;
-  padding: 5px 5px 30px 50px;
-  overflow:hidden;
-}
-
-.user-results .bold{
-  text-align:center;
-  font-weight: bold;
-  float: left;
-  white-space: pre-wrap;
-}
-
-.user-results .normal-text{
-  float:left;
-  text-align:center;
-  white-space: pre-wrap;
-}
-
-
-/*Second Row - word count/word frequency*/
-.word-count-heading{
-  margin: 10px 20px 10px 50px;
-  font-size:24px;
-  font-weight:bold;
-  width:50%;
-}
-
-.word-count-graph{
-  width:35%;
-  margin-left:10px;
-  float:left;
-}
-
-
-.word-cloud-container {
-  margin-left:10%;
-  width:50%;
-  float:left;
-}
-
-.wordcloud{
+.main-tab{
+  background-color:#212121;
+  border:none;
+  padding: 0;
   width:100%;
 }
 
+.tab-style{
+  color:darkgray;
+  background-color:#212121 !important;
+  font-size:20px;
+  font-weight:lighter;
+  font-family:'Helvetica';
+  border:1px solid lightgray ;
 
-/* Third row  - graphs*/
-.bigram-count {
+}
+
+.tab-style:hover{
+  color:#ffb300;
+}
+
+.tab-output{
+  width:100%;
+}
+
+/*bigram graph*/
+
+
+
+
+/*tab 1*/
+
+.polarity-graph{
   float:left;
+  width:33vw;
+}
+
+.polarity-upvotes-graph{
+  float:left;
+  /*width:48%*/
+  width:33vw;
+}
+
+/*tab 2*/
+
+.sunburst-graph{
+  width:80%;
+  height:50vh;
+}
+
+/*tab 3*/
+
+.word-frequency{
+  float:left;
+  width:60%;
+  height:50vh;
+}
+
+/*LSI*/
+.LSI-container{
+  padding-left:50px;
+  width:96%;
+  float:left;
+}
+
+.LSI-heading{
+  font-weight: lighter;
+  color:darkgray;
+  font-family:'Helvetica';
+}
+
+.hover-container{
+  width:180px;
+  padding-top:5px;
+  padding-bottom:5px;
+}
+
+.hover-container .LSI-hover{
+  visibility:hidden;
+  background-color:#212121;
+  color:white;
+  float:left;
+  padding:2px;
+  font-family:'Helvetica';
+  font-weight:lighter;
+  /*position*/
+  position: absolute;
+  z-index: 1;
+  margin-top:-65px;
+  margin-left:200px;
+}
+
+.hover-container:hover .LSI-heading{
+  color:#ff7700;
+}
+
+.hover-container:hover .LSI-hover{
+  visibility:visible;
+}
+
+.LSI-textbox{
   width:30%;
+  font-family:'Helvetica';
+  font-weight: lighter;
 }
 
-.polarity-histogram{
-  width:30%;
+.LSI-output-container{
+  width:100%;
+}
+
+.datatable{
+  width:51vw;
+  height:40vh;
   float:left;
 }
 
-.upvotes-regression-graph{
-  width:30%;
+
+.LSI-bar{
   float:left;
-}
-
-
-.radioitem-container{
-  text-align: left;
-  margin-left: 60px;
-}
-
-.datatable {
-  width:48%;
-  float:left;
-  border-left: 1px lightgrey solid;
-  border-top: 2px lightgrey none;
-  border-bottom: 2px lightgrey none;
-}
-
-.TextBox {
-  width:45%;
-  float:left;
-  margin-right:30px;
-  padding-left: 10px;
-  border-top: 2px lightgrey none;
-  border-right: 2px lightgrey none;
-  border-bottom: 2px lightgrey none;
-}
-
-.TextBox-heading {
-  color:#d46161;
+  width:41vw;
+  padding-left:15px;
 }
 
 
@@ -227,14 +238,7 @@
 
 
 
-
-
-
-
-
-
-
-
+/*'font-family':'Helvetica narrow, sans-serif', 'fontWeight':'lighter',*/
 
 
 
