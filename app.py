@@ -159,7 +159,7 @@ app.layout = html.Div([
                 className='hover-container',
                 children=[
                     html.H3('Topic Modeling (LSI)', className='LSI-heading'),
-                    html.Span('Enter query parameters here to find similar comments in subreddit post', className='LSI-hover'),
+                    html.Span('Enter query parameters here to find similar comments in subreddit post (Be patient!)', className='LSI-hover'),
                 ]
             ),
             dcc.Textarea(id='LSI_input', placeholder='Enter query parameters', value='', draggable=False, className='LSI-textbox'),
