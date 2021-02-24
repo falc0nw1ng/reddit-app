@@ -172,7 +172,6 @@ app.layout = html.Div([
 @app.callback(
     Output('word_count_value', 'data'),
     Output('polarity_value', 'data'),
-    Output('LDA_value', 'data'),
     [Input('threshold', 'value'),
      Input('post_url', 'value')]
 )
@@ -190,7 +189,7 @@ def process_data(threshold, post_url):
     upvotes = [comment.score for comment in submission.comments.list()]
     sentiment_df['Upvotes'] = upvotes
 
-    return word_count_df(submission).to_json(orient='split'), sentiment_df.to_json(orient='split'), LDA_df(submission).to_json(orient='split')
+    return word_count_df(submission).to_json(orient='split'), sentiment_df.to_json(orient='split'),
 
 
 # number of comments, average senitment value, average upvotes,
@@ -223,9 +222,10 @@ def post_stats(jsonified_cleaned_data):
     [Input('sentiment-topic-tabs', 'value'),
     Input('polarity_value', 'data'),
     Input('word_count_value', 'data'),
-    Input('LDA_value', 'data')
+    Input('threshold', 'value'),
+    Input('post_url', 'value')
     ])
-def render_page(tab_value, polarity_cleaned_data, wordcount_cleaned_data, LDA_cleaned_data):
+def render_page(tab_value, polarity_cleaned_data, wordcount_cleaned_data, threshold, post_url):
     if tab_value == 'sentiment_tab':
         df = pd.read_json(polarity_cleaned_data, orient='split')
         no_zeroes_df = df[df['Polarity'] != 0]
@@ -271,23 +271,47 @@ def render_page(tab_value, polarity_cleaned_data, wordcount_cleaned_data, LDA_cl
             dcc.Graph(figure=fig2, className='polarity-upvotes-graph')]
         )
     elif tab_value =='topic_tab':
-        ds = pd.read_json(LDA_cleaned_data, orient='split')
-        fig3 = go.Figure(go.Sunburst(
+        submission = reddit.submission(url=post_url)
+        submission.comments.replace_more(limit=threshold)
+        ds = LDA_df(submission)
+
+        fig3a = go.Figure(go.Sunburst(
         labels=['Topic 1', 'Topic 2', 'Topic 3', ds.Topics[0][0][0], ds.Topics[0][0][1], ds.Topics[0][0][2],ds.Topics[0][0][3], ds.Topics[1][0][0], ds.Topics[1][0][1], ds.Topics[1][0][2],ds.Topics[1][0][3], ds.Topics[2][0][0], ds.Topics[2][0][1], ds.Topics[2][0][2], ds.Topics[2][0][3]],
         parents=['', '', '', 'Topic 1', 'Topic 1', 'Topic 1', 'Topic 1', 'Topic 2', 'Topic 2', 'Topic 2', 'Topic 2', 'Topic 3', 'Topic 3', 'Topic 3', 'Topic 3',  ]
         ))
-        fig3.update_layout(
+        fig3a.update_layout(
             margin = dict(t=0, l=0, r=0, b=0),
             plot_bgcolor='#212121',
             paper_bgcolor='#212121'
         ),
+        list_of_topics = []
+        list_of_weights = []
+        for i in range(0,3):
+            for j in range(0,4):
+                list_of_topics.append(ds.Topics[i][0][j])
+                list_of_weights.append(ds.Weight[i][0][j])
+        fig3b = go.Figure(go.Bar(x=list_of_topics, y=list_of_weights, marker=dict(color='#ffb300')))
+        fig3b.update_layout(
+            title='Weight vs Subtopics',
+            plot_bgcolor='#212121',
+            paper_bgcolor='#212121',
+            xaxis=dict(
+                title='Sub Topics'
+            ),
+            yaxis=dict(
+                title='Weight'
+            ),
+            font=dict(
+                color='#ffb300'
+                ),
+        )
 
         return html.Div(
-            className='sunburst-graph',
+            className='topic-modeling-container',
             children=[
-                dcc.Graph(figure=fig3)
+                dcc.Graph(figure=fig3a, className='word-frequency'),
+                dcc.Graph(figure=fig3b, className='word-frequency')
             ])
-
 
     elif tab_value == 'other':
         de = pd.read_json(wordcount_cleaned_data, orient='split')
