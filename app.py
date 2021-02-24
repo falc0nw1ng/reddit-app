@@ -296,7 +296,7 @@ def render_page(tab_value, polarity_cleaned_data, wordcount_cleaned_data, thresh
             plot_bgcolor='#212121',
             paper_bgcolor='#212121',
             xaxis=dict(
-                title='Sub Topics'
+                title='Subtopics'
             ),
             yaxis=dict(
                 title='Weight'
