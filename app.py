@@ -411,7 +411,7 @@ def LSI(polarity_cleaned_data, LSI_input):
         font=dict(
             color='#ff9100'
         ),
-        title='Statistical Averages for Top Comment Results',
+        title='Statistical Averages for Search Results',
         xaxis=dict(
             title='Comments (from highest cosine similarity to lowest)',
         ),
