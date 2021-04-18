@@ -32,8 +32,8 @@ tokenizer = RegexpTokenizer(r'\w+')
 
 
 reddit = praw.Reddit(
-    client_id="q3i_JQwcT6LiVQ",
-    client_secret="0WBVfamfuSueQRVx23poC-Eao-c",
+    client_id="***",
+    client_secret="***",
     user_agent="my user agent"
 )
 
